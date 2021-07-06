@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong) NSArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -25,10 +26,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Setting data source and delegate
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    // Loading posts
     [self loadPosts];
+    
+    // Pull to refresh controller
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(loadPosts) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,6 +71,7 @@
         if (posts != nil) {
             // do something with the array of object returned by the call
             self.posts = posts;
+            [self.refreshControl endRefreshing];
             [self.tableView reloadData];
         } else {
             NSLog(@"%@", error.localizedDescription);
