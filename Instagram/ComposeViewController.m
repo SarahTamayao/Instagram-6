@@ -50,11 +50,12 @@
     // Get the image captured by the UIImagePickerController
     UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
+    CGSize imageSize = CGSizeMake(300, 300);
+    UIImage *resizedImage = [self resizeImage:editedImage withSize:imageSize];
 
     // Do something with the images (based on your use case)
-    self.postImage = editedImage;
-    self.postImageView.image = editedImage;
-    
+    self.postImage = resizedImage;
+    self.postImageView.image = resizedImage;
     
     // Dismiss UIImagePickerController to go back to your original view controller
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -76,13 +77,27 @@
         if (succeeded) {
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            NSLog(@"Problem saving message: %@", error.localizedDescription);
+            NSLog(@"Problem posting image: %@", error.localizedDescription);
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error posting image." preferredStyle:(UIAlertControllerStyleAlert)];
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
             [alert addAction:okAction];
             [self presentViewController:alert animated:YES completion:^{}];
         }
     }];
+}
+
+- (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    
+    resizeImageView.contentMode = UIViewContentModeScaleAspectFill;
+    resizeImageView.image = image;
+    
+    UIGraphicsBeginImageContext(size);
+    [resizeImageView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
 
