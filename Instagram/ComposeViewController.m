@@ -72,7 +72,7 @@
     post[@"text"] = self.postTextView.text;
     post[@"user"] = PFUser.currentUser;
     NSData *imageData = UIImagePNGRepresentation(self.postImage);
-    post[@"image"] = [PFFileObject fileObjectWithData:imageData];
+    post[@"image"] = [PFFileObject fileObjectWithName:@"image.png" data:imageData contentType:@"image/png"];
     [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (succeeded) {
             [self dismissViewControllerAnimated:YES completion:nil];

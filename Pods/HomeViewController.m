@@ -10,8 +10,13 @@
 #import "SceneDelegate.h"
 #import "LoginViewController.h"
 #import "ComposeViewController.h"
+#import "PostCell.h"
+#import "UIImageView+AFNetworking.h"
 
-@interface HomeViewController ()
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (nonatomic, strong) NSArray *posts;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -19,8 +24,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    
+    [self loadPosts];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
 
 
 - (IBAction)didTapLogout:(id)sender {
@@ -34,6 +48,47 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     myDelegate.window.rootViewController = loginViewController;
+}
+
+- (void)loadPosts {
+    // Construct query
+    PFQuery *query = [PFQuery queryWithClassName:@"Instagram_Posts"];
+    [query includeKey:@"text"];
+    [query includeKey:@"image"];
+    query.limit = 20;
+    [query orderByDescending:@"createdAt"];
+    
+    // Fetch posts asynchronously
+    [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
+        if (posts != nil) {
+            // do something with the array of object returned by the call
+            self.posts = posts;
+            [self.tableView reloadData];
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+    }];
+}
+
+
+- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    // Table view dequeueing
+    PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
+    
+    // Setting post attributes
+    NSLog(@"%@", self.posts);
+    cell.postCaptionLabel.text = self.posts[indexPath.row][@"text"];
+    
+    // Displaying post image
+    PFFileObject *image = self.posts[indexPath.row][@"image"];
+    [cell.postImageView setImageWithURL:[NSURL URLWithString:image.url]];
+    
+    return cell;
+}
+
+
+- (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.posts.count;
 }
 
 
