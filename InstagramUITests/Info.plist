@@ -18,5 +18,9 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need library access to upload images</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need camera access to take pictures</string>
 </dict>
 </plist>
