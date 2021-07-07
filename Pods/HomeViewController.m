@@ -12,12 +12,14 @@
 #import "ComposeViewController.h"
 #import "PostCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "DetailsViewController.h"
 
-@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerDelegate>
 
 @property (nonatomic, strong) NSArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) NSNumber *numPosts;
 
 @end
 
@@ -25,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // Setting default number of posts
+    self.numPosts = [NSNumber numberWithInt:20];
     
     // Setting data source and delegate
     self.tableView.delegate = self;
@@ -63,7 +68,8 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Instagram_Posts"];
     [query includeKey:@"text"];
     [query includeKey:@"image"];
-    query.limit = 20;
+    [query includeKey:@"createdAt"];
+    query.limit = [self.numPosts intValue];
     [query orderByDescending:@"createdAt"];
     
     // Fetch posts asynchronously
@@ -71,6 +77,9 @@
         if (posts != nil) {
             // do something with the array of object returned by the call
             self.posts = posts;
+            NSDictionary *post = posts[0];
+            NSDate *date = post[@"createdAt"];
+            NSLog(@"%@",date);
             [self.refreshControl endRefreshing];
             [self.tableView reloadData];
         } else {
@@ -85,7 +94,6 @@
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     
     // Setting post attributes
-    NSLog(@"%@", self.posts);
     cell.postCaptionLabel.text = self.posts[indexPath.row][@"text"];
     
     // Displaying post image
@@ -101,9 +109,39 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(indexPath.row + 1 == [self.numPosts intValue]){
+        NSNumber *newNumPosts = [NSNumber numberWithInt:[self.numPosts intValue]+20];
+        self.numPosts = newNumPosts;
+        [self loadPosts];
+    }
+}
+
+
+- (void)didPost {
+    [self loadPosts];
+}
+
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier  isEqual: @"toDetails"]) {
+        // Identify tapped cell
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        
+        // Get tweet corresponding to the cell
+        NSDictionary *post = self.posts[indexPath.row];
+        
+        // Send information
+        DetailsViewController *detailsViewController = [segue destinationViewController];
+        detailsViewController.post = post;
+    } else if ([segue.identifier  isEqual: @"toCompose"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    }
 }
 
 @end

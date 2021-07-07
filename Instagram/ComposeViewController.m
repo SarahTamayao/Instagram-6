@@ -76,6 +76,7 @@
     [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (succeeded) {
             [self dismissViewControllerAnimated:YES completion:nil];
+            [self.delegate didPost];
         } else {
             NSLog(@"Problem posting image: %@", error.localizedDescription);
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error posting image." preferredStyle:(UIAlertControllerStyleAlert)];
