@@ -130,7 +130,7 @@
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sample text here" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Uv-t4-v7a">
                                                     <rect key="frame" x="20" y="424" width="374" height="11"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -196,7 +196,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ntm-yc-kzh">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1083"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1044"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5jZ-93-RFB">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
@@ -205,40 +205,29 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lHs-Cn-F6l">
-                                                <rect key="frame" x="20" y="474.5" width="374" height="588.5"/>
+                                                <rect key="frame" x="20" y="434" width="374" height="562"/>
                                                 <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</mutableString>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w2J-WV-Dk6">
-                                                <rect key="frame" x="20" y="434" width="41.5" height="20.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="20.5" id="IS6-pk-OtC"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mci-OK-4D9">
-                                                <rect key="frame" x="352.5" y="434" width="41.5" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
+                                                <rect key="frame" x="356.5" y="1006" width="37.5" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" systemColor="systemGrayColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="lHs-Cn-F6l" secondAttribute="trailing" constant="20" id="0h7-ZJ-B8j"/>
-                                            <constraint firstAttribute="trailing" secondItem="mci-OK-4D9" secondAttribute="trailing" constant="20" id="7CL-Pd-8IZ"/>
-                                            <constraint firstItem="w2J-WV-Dk6" firstAttribute="top" secondItem="5jZ-93-RFB" secondAttribute="bottom" constant="20" id="9te-nJ-ECn"/>
-                                            <constraint firstItem="w2J-WV-Dk6" firstAttribute="leading" secondItem="Ntm-yc-kzh" secondAttribute="leading" constant="20" id="JMO-X2-nYn"/>
+                                            <constraint firstItem="mci-OK-4D9" firstAttribute="top" secondItem="lHs-Cn-F6l" secondAttribute="bottom" constant="10" id="FGU-cO-hSj"/>
                                             <constraint firstItem="lHs-Cn-F6l" firstAttribute="leading" secondItem="Ntm-yc-kzh" secondAttribute="leading" constant="20" id="P2I-Bc-0pr"/>
-                                            <constraint firstItem="mci-OK-4D9" firstAttribute="top" secondItem="w2J-WV-Dk6" secondAttribute="top" id="Rpm-RP-nYv"/>
+                                            <constraint firstAttribute="trailing" secondItem="mci-OK-4D9" secondAttribute="trailing" constant="20" id="Qsx-7A-1vN"/>
                                             <constraint firstItem="5jZ-93-RFB" firstAttribute="leading" secondItem="Ntm-yc-kzh" secondAttribute="leading" id="TVm-3x-lsI"/>
-                                            <constraint firstItem="mci-OK-4D9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="w2J-WV-Dk6" secondAttribute="trailing" constant="20" id="VCP-v7-Sde"/>
-                                            <constraint firstItem="lHs-Cn-F6l" firstAttribute="top" secondItem="w2J-WV-Dk6" secondAttribute="bottom" constant="20" id="VNT-A2-eH1"/>
-                                            <constraint firstAttribute="bottom" secondItem="lHs-Cn-F6l" secondAttribute="bottom" constant="20" id="YSv-e2-yUl"/>
+                                            <constraint firstAttribute="bottom" secondItem="mci-OK-4D9" secondAttribute="bottom" constant="20" id="hvr-TO-tYo"/>
+                                            <constraint firstItem="lHs-Cn-F6l" firstAttribute="top" secondItem="5jZ-93-RFB" secondAttribute="bottom" constant="20" id="mHf-ES-dSY"/>
+                                            <constraint firstItem="mci-OK-4D9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ntm-yc-kzh" secondAttribute="leading" constant="20" id="tw1-Gu-ORf"/>
                                             <constraint firstAttribute="trailing" secondItem="5jZ-93-RFB" secondAttribute="trailing" id="xTO-E8-rje"/>
                                             <constraint firstItem="5jZ-93-RFB" firstAttribute="top" secondItem="Ntm-yc-kzh" secondAttribute="top" id="zeI-bA-CAc"/>
                                         </constraints>
@@ -269,7 +258,6 @@
                         <outlet property="captionLabel" destination="lHs-Cn-F6l" id="BO1-xv-l3a"/>
                         <outlet property="postImageView" destination="5jZ-93-RFB" id="rO8-Ws-pQx"/>
                         <outlet property="timeLabel" destination="mci-OK-4D9" id="rMH-o7-5zE"/>
-                        <outlet property="usernameLabel" destination="w2J-WV-Dk6" id="lwn-hb-GSf"/>
                     </connections>
                 </viewController>
             </objects>
@@ -317,7 +305,7 @@
                                     <constraint firstAttribute="height" constant="200" id="ejg-8z-rZ2"/>
                                 </constraints>
                                 <color key="textColor" systemColor="labelColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -377,6 +365,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

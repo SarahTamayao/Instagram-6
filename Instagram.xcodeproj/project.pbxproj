@@ -156,6 +156,7 @@
 		D912026C2694C8DA00717B04 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				D91202B42696572D00717B04 /* Models */,
 				D91202AC2695142B00717B04 /* PostCell.h */,
 				D91202AD2695142B00717B04 /* PostCell.m */,
 				D91202A22694E1CB00717B04 /* View Controllers */,
@@ -203,6 +204,13 @@
 				D91202A42694E1DD00717B04 /* LoginViewController.m */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		D91202B42696572D00717B04 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

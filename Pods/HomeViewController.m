@@ -68,6 +68,7 @@
     PFQuery *query = [PFQuery queryWithClassName:@"Instagram_Posts"];
     [query includeKey:@"text"];
     [query includeKey:@"image"];
+    [query includeKey:@"user"];
     [query includeKey:@"createdAt"];
     query.limit = [self.numPosts intValue];
     [query orderByDescending:@"createdAt"];
@@ -77,9 +78,6 @@
         if (posts != nil) {
             // do something with the array of object returned by the call
             self.posts = posts;
-            NSDictionary *post = posts[0];
-            NSDate *date = post[@"createdAt"];
-            NSLog(@"%@",date);
             [self.refreshControl endRefreshing];
             [self.tableView reloadData];
         } else {
@@ -132,7 +130,7 @@
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         
         // Get tweet corresponding to the cell
-        NSDictionary *post = self.posts[indexPath.row];
+        PFObject *post = self.posts[indexPath.row];
         
         // Send information
         DetailsViewController *detailsViewController = [segue destinationViewController];

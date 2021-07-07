@@ -8,11 +8,11 @@
 #import "DetailsViewController.h"
 #import "UIImageView+AFNetworking.h"
 #import <Parse/Parse.h>
+#import "DateTools.h"
 
 @interface DetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *postImageView;
 @property (weak, nonatomic) IBOutlet UILabel *captionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *usernameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @end
@@ -22,22 +22,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Set caption
-    self.captionLabel.text = self.post[@"text"];
-    
     // Set image
     PFFileObject *image = self.post[@"image"];
     [self.postImageView setImageWithURL:[NSURL URLWithString:image.url]];
     
-    // Set user
-    NSLog(@"%@", self.post);
-    //NSLog(@"%@", self.post[@"createdAt"]);
-    NSLog(@"%@", self.post[@"user"]);
-    PFUser *user = self.post[@"author"];
-    self.usernameLabel.text = user.username;
+    // Get user
+    PFUser *user = self.post[@"user"];
+    NSLog(@"%@", user.username);
+    
+    // Set caption
+    NSString *editedCaption = [NSString stringWithFormat:@"  %@", self.post[@"text"]];
+    NSAttributedString *caption = [[NSAttributedString alloc] initWithString:editedCaption];
+    UIFont *font = [UIFont boldSystemFontOfSize:17];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:font
+                                    forKey:NSFontAttributeName];
+    NSMutableAttributedString *username = [[NSMutableAttributedString alloc] initWithString:user.username attributes:attrsDictionary];
+    [username appendAttributedString:caption];
+    self.captionLabel.attributedText = username;
     
     // Set created time
-    //self.timeLabel.text = self.post[@"createdAt"];
+    self.timeLabel.text = [self.post createdAt].shortTimeAgoSinceNow;
+    
+    // Set nav bar title
+    self.navigationItem.title = [NSString stringWithFormat:@"%@'s Post", user.username];
 }
 
 /*

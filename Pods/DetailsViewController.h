@@ -6,12 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Parse/Parse.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DetailsViewController : UIViewController
 
-@property (nonatomic, strong) NSDictionary *post;
+@property (nonatomic, strong) PFObject *post;
 
 @end
 
