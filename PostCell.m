@@ -140,28 +140,27 @@
 
 
 - (void)reloadData {
-    // Setting post attributes
-    self.postCaptionLabel.text = self.post[@"text"];
-    
-    // Displaying post image
-    PFFileObject *image = self.post[@"image"];
-    [self.postImageView setImageWithURL:[NSURL URLWithString:image.url]];
-    
     // Displaying likes
     if ([self.post[@"likes"] intValue] == 1) {
         self.likesLabel.text = [NSString stringWithFormat:@"%@ like", self.post[@"likes"]];
     } else {
         self.likesLabel.text = [NSString stringWithFormat:@"%@ likes", self.post[@"likes"]];
     }
-    
-    // Set date label
-    self.timeLabel.text = [self.post createdAt].shortTimeAgoSinceNow;
 }
 
 
 - (void)setCell:(PFObject *)post {
-    // Setting post attributes
-    self.postCaptionLabel.text = post[@"text"];
+    // Setting post caption
+    // Set caption
+    PFUser *user = post[@"user"];
+    NSString *editedCaption = [NSString stringWithFormat:@"  %@", post[@"text"]];
+    NSAttributedString *caption = [[NSAttributedString alloc] initWithString:editedCaption];
+    UIFont *font = [UIFont boldSystemFontOfSize:17];
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:font
+                                    forKey:NSFontAttributeName];
+    NSMutableAttributedString *username = [[NSMutableAttributedString alloc] initWithString:user.username attributes:attrsDictionary];
+    [username appendAttributedString:caption];
+    self.postCaptionLabel.attributedText = username;
     
     // Displaying post image
     self.postImageView.image = nil;
