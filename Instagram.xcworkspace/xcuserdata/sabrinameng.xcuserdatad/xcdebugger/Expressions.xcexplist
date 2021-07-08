@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "__23-[PostCell didTapLike:]_block_invoke:PostCell.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PostCell didTapLike:]:PostCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.post">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PFObject objectForKey:]:PFObject.m">
+      </ContextState>
+      <ContextState
+         contextName = "__31-[HomeViewController loadPosts]_block_invoke:HomeViewController.m">
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

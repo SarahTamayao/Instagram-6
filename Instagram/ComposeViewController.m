@@ -73,6 +73,8 @@
     post[@"user"] = PFUser.currentUser;
     NSData *imageData = UIImagePNGRepresentation(self.postImage);
     post[@"image"] = [PFFileObject fileObjectWithName:@"image.png" data:imageData contentType:@"image/png"];
+    post[@"likes"] = [NSNumber numberWithInt:0];
+    post[@"users_who_liked"] = [NSMutableArray array];
     [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
         if (succeeded) {
             [self dismissViewControllerAnimated:YES completion:nil];

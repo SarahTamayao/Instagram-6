@@ -70,6 +70,7 @@
     [query includeKey:@"image"];
     [query includeKey:@"user"];
     [query includeKey:@"createdAt"];
+    [query includeKey:@"likes"];
     query.limit = [self.numPosts intValue];
     [query orderByDescending:@"createdAt"];
     
@@ -91,12 +92,10 @@
     // Table view dequeueing
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     
-    // Setting post attributes
-    cell.postCaptionLabel.text = self.posts[indexPath.row][@"text"];
+    // Setting post
+    PFObject *post = self.posts[indexPath.row];
     
-    // Displaying post image
-    PFFileObject *image = self.posts[indexPath.row][@"image"];
-    [cell.postImageView setImageWithURL:[NSURL URLWithString:image.url]];
+    [cell setCell:post];
     
     return cell;
 }
@@ -121,6 +120,7 @@
 }
 
 
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -129,7 +129,7 @@
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         
-        // Get tweet corresponding to the cell
+        // Get post corresponding to the cell
         PFObject *post = self.posts[indexPath.row];
         
         // Send information
