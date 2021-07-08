@@ -3,7 +3,31 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "-[PostCell reloadData]:PostCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.post">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__23-[PostCell didTapLike:]_block_invoke_2:PostCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.post">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "__23-[PostCell didTapLike:]_block_invoke:PostCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.post">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__31-[HomeViewController loadPosts]_block_invoke:HomeViewController.m">
       </ContextState>
       <ContextState
          contextName = "-[PostCell didTapLike:]:PostCell.m">
@@ -14,10 +38,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PFObject objectForKey:]:PFObject.m">
+         contextName = "-[PostCell setCell:]:PostCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.post">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__31-[HomeViewController loadPosts]_block_invoke:HomeViewController.m">
+         contextName = "-[PFObject objectForKey:]:PFObject.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

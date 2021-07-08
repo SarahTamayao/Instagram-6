@@ -42,6 +42,12 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(loadPosts) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
+    
+    /*
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"PostCell"];
+    [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"PostHeader"];
+     */
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -70,6 +76,7 @@
     [query includeKey:@"image"];
     [query includeKey:@"user"];
     [query includeKey:@"createdAt"];
+    [query includeKey:@"users_who_liked"];
     [query includeKey:@"likes"];
     query.limit = [self.numPosts intValue];
     [query orderByDescending:@"createdAt"];
@@ -119,7 +126,22 @@
     [self loadPosts];
 }
 
+/*
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"PostHeader"];
+    header.textLabel.text = self.posts[section][@"user"][@"username"];
+    return header;
+}
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return self.posts.count;
+}
+*/
 
 #pragma mark - Navigation
 
