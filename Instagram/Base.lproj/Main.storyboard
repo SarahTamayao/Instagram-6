@@ -113,7 +113,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EeV-yN-4Iq">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="PostCell" rowHeight="600" id="KmW-bf-7y8" customClass="PostCell">
                                         <rect key="frame" x="0.0" y="24.5" width="414" height="600"/>
@@ -169,7 +170,7 @@
                                                 <constraint firstItem="H5z-gF-lS1" firstAttribute="top" secondItem="cMD-E0-OrL" secondAttribute="bottom" constant="10" id="ASM-tt-E3g"/>
                                                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="H5z-gF-lS1" secondAttribute="trailing" constant="10" id="FcW-XY-Llk"/>
                                                 <constraint firstItem="cMD-E0-OrL" firstAttribute="top" secondItem="J4k-9p-WPk" secondAttribute="bottom" constant="10" id="GnM-Vu-WZW"/>
-                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zny-FT-HLU" secondAttribute="bottom" constant="50" id="Ico-Ee-e2f"/>
+                                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="zny-FT-HLU" secondAttribute="bottom" constant="30" id="Ico-Ee-e2f"/>
                                                 <constraint firstItem="zny-FT-HLU" firstAttribute="top" secondItem="0Uv-t4-v7a" secondAttribute="bottom" constant="10" id="RED-Jg-Oam"/>
                                                 <constraint firstItem="J4k-9p-WPk" firstAttribute="leading" secondItem="Pls-dI-elA" secondAttribute="leading" id="SCm-Zg-So3"/>
                                                 <constraint firstItem="J4k-9p-WPk" firstAttribute="top" secondItem="Pls-dI-elA" secondAttribute="top" id="bTT-yC-5rc"/>

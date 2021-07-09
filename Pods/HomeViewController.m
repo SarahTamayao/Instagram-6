@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSNumber *numPosts;
+@property (nonatomic, strong) NSArray *usernames;
 
 @end
 
@@ -43,11 +44,14 @@
     [self.refreshControl addTarget:self action:@selector(loadPosts) forControlEvents:UIControlEventValueChanged];
     [self.tableView insertSubview:self.refreshControl atIndex:0];
     
-    /*
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"PostCell"];
+    // Initializing table headers
     [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"PostHeader"];
-     */
     
+    // Piece of code that stops header view from floating when scrolling
+    CGFloat dummyViewHeight = 50;
+    UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, dummyViewHeight)];
+    self.tableView.tableHeaderView = dummyView;
+    self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,13 +98,34 @@
     }];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"PostHeader"];
+    header.textLabel.text = [NSString stringWithFormat:@"          %@", self.posts[section][@"user"][@"username"]];
+    UIImage *image = [UIImage imageNamed:@"user2"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    imageView.frame = CGRectMake(10,10,40,40);
+    [header addSubview:imageView];
+    //[header addSubview:imageView];
+    //[imageView setTranslatesAutoresizingMaskIntoConstraints:false];
+    //[imageView setCenter:CGPointMake(60, 60)];
+    return header;
+}
+
+
+-(void)tableView:(UITableView *)tableView
+    willDisplayHeaderView:(UIView *)view
+      forSection:(NSInteger)section {
+    view.tintColor = [UIColor clearColor];
+}
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    
     // Table view dequeueing
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     
     // Setting post
-    PFObject *post = self.posts[indexPath.row];
+    PFObject *post = self.posts[indexPath.section];
     
     [cell setCell:post];
     
@@ -109,9 +134,12 @@
 
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+    
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.posts.count;
 }
-
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
     if(indexPath.row + 1 == [self.numPosts intValue]){
@@ -126,22 +154,10 @@
     [self loadPosts];
 }
 
-/*
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"PostHeader"];
-    header.textLabel.text = self.posts[section][@"user"][@"username"];
-    return header;
-}
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 30;
+    return 60;
 }
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.posts.count;
-}
-*/
 
 #pragma mark - Navigation
 
