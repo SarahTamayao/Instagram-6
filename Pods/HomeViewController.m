@@ -18,7 +18,7 @@
 
 @property (nonatomic, strong) NSArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSNumber *numPosts;
 @property (nonatomic, strong) NSArray *usernames;
 
@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view layoutIfNeeded];
     
     // Setting default number of posts
     self.numPosts = [NSNumber numberWithInt:20];
@@ -35,9 +36,6 @@
     // Setting data source and delegate
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
-    // Loading posts
-    [self loadPosts];
     
     // Pull to refresh controller
     self.refreshControl = [[UIRefreshControl alloc] init];
@@ -47,15 +45,31 @@
     // Initializing table headers
     [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"PostHeader"];
     
-    // Piece of code that stops header view from floating when scrolling
+    // Piece of code that stops header view from floating when scrolling -- hides refreshControl though
+    /*
     CGFloat dummyViewHeight = 50;
     UIView *dummyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.tableView.bounds.size.width, dummyViewHeight)];
+    [dummyView setBackgroundColor:[UIColor clearColor]];
     self.tableView.tableHeaderView = dummyView;
     self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0);
+     */
+    
+    // Refresh table view every 10 minutes
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:600
+        target:self selector:@selector(reloadTableView:) userInfo:nil repeats:true];
+    
+    // Loading posts
+    [self loadPosts];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
+}
+
+
+- (void)reloadTableView:(NSTimer *)timer {
+    [self.tableView reloadData];
+    NSLog(@"refreshed!");
 }
 
 
@@ -90,8 +104,8 @@
         if (posts != nil) {
             // do something with the array of object returned by the call
             self.posts = posts;
-            [self.refreshControl endRefreshing];
             [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
         } else {
             NSLog(@"%@", error.localizedDescription);
         }
@@ -115,7 +129,7 @@
 -(void)tableView:(UITableView *)tableView
     willDisplayHeaderView:(UIView *)view
       forSection:(NSInteger)section {
-    view.tintColor = [UIColor clearColor];
+    view.tintColor = [UIColor colorWithWhite:1.0 alpha:0.9];
 }
 
 

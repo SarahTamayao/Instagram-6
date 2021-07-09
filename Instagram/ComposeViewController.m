@@ -9,8 +9,9 @@
 #import "HomeViewController.h"
 #import "SceneDelegate.h"
 #import <Parse/Parse.h>
+#import "MBProgressHUD.h"
 
-@interface ComposeViewController () <UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ComposeViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGestureRecognizer;
 @property (strong, nonatomic) UIImage *postImage;
 @property (weak, nonatomic) IBOutlet UIImageView *postImageView;
@@ -75,19 +76,37 @@
     post[@"image"] = [PFFileObject fileObjectWithName:@"image.png" data:imageData contentType:@"image/png"];
     post[@"likes"] = [NSNumber numberWithInt:0];
     post[@"users_who_liked"] = [NSMutableArray array];
-    [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-        if (succeeded) {
-            [self dismissViewControllerAnimated:YES completion:nil];
-            [self.delegate didPost];
-        } else {
-            NSLog(@"Problem posting image: %@", error.localizedDescription);
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error posting image." preferredStyle:(UIAlertControllerStyleAlert)];
-            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
-            [alert addAction:okAction];
-            [self presentViewController:alert animated:YES completion:^{}];
-        }
-    }];
+    
+    // Progress HUD while post is saved
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        // Saving new post
+        [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
+            if (succeeded) {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                [self.delegate didPost];
+            } else {
+                NSLog(@"Problem posting image: %@", error.localizedDescription);
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error posting image." preferredStyle:(UIAlertControllerStyleAlert)];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
+                [alert addAction:okAction];
+                [self presentViewController:alert animated:YES completion:^{}];
+            }
+            
+            // Adding a slight delay so progress HUD doesn't just flash
+            [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(stopAnimation) userInfo:nil repeats:NO];
+        }];
+    });
 }
+
+
+- (void)stopAnimation {
+    // Stopping progress HUD
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUDForView:self.view animated:YES];
+    });
+}
+
 
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
     UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
