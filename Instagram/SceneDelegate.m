@@ -23,8 +23,8 @@
         if (user != nil) {
             NSLog(@"Welcome back %@ 😀", user.username);
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-            UIViewController *homeNavigationController = [storyboard instantiateViewControllerWithIdentifier:@"HomeNavigationController"];
-            self.window.rootViewController = homeNavigationController;
+            UITabBarController *tabBarController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+            self.window.rootViewController = tabBarController;
         }
 }
 
