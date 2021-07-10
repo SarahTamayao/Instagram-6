@@ -49,6 +49,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 Here's a walkthrough of implemented user stories:
 
 Login/Logout:
+*Note: I am typing in the password field, screen recording just doesn't record it since it's a password 
 
 ![](https://i.imgur.com/J6dFnbc.gif)
 
