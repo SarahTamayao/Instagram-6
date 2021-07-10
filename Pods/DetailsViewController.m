@@ -23,15 +23,14 @@
     [super viewDidLoad];
     
     // Set image
-    PFFileObject *image = self.post[@"image"];
-    [self.postImageView setImageWithURL:[NSURL URLWithString:image.url]];
+    [self.postImageView setImageWithURL:[NSURL URLWithString:self.post.imageURL]];
     
     // Get user
-    PFUser *user = self.post[@"user"];
+    PFUser *user = self.post.user;
     NSLog(@"%@", user.username);
     
     // Set caption
-    NSString *editedCaption = [NSString stringWithFormat:@"  %@", self.post[@"text"]];
+    NSString *editedCaption = [NSString stringWithFormat:@"  %@", self.post.text];
     NSAttributedString *caption = [[NSAttributedString alloc] initWithString:editedCaption];
     UIFont *font = [UIFont boldSystemFontOfSize:17];
     NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:font
@@ -41,7 +40,7 @@
     self.captionLabel.attributedText = username;
     
     // Set created time
-    self.timeLabel.text = [self.post createdAt].shortTimeAgoSinceNow;
+    self.timeLabel.text = self.post.timeCreatedAt.shortTimeAgoSinceNow;
     
     // Set nav bar title
     self.navigationItem.title = [NSString stringWithFormat:@"%@'s Post", user.username];

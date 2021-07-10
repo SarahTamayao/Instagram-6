@@ -3,7 +3,7 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[PostCell reloadData]:PostCell.m">
+         contextName = "__23-[PostCell didTapLike:]_block_invoke:PostCell.m">
          <PersistentStrings>
             <PersistentString
                value = "self.post">
@@ -19,7 +19,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__23-[PostCell didTapLike:]_block_invoke:PostCell.m">
+         contextName = "-[PostCell reloadData]:PostCell.m">
          <PersistentStrings>
             <PersistentString
                value = "self.post">
@@ -28,12 +28,37 @@
       </ContextState>
       <ContextState
          contextName = "__31-[HomeViewController loadPosts]_block_invoke:HomeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "newPost.timeCreatedAt">
+            </PersistentString>
+            <PersistentString
+               value = "post.createdAt">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PostCell multipleTap:withEvent:]:PostCell.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.post">
+            </PersistentString>
+            <PersistentString
+               value = "self.post.objectID">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[PostCell didTapLike:]:PostCell.m">
          <PersistentStrings>
             <PersistentString
+               value = "likes">
+            </PersistentString>
+            <PersistentString
                value = "self.post">
+            </PersistentString>
+            <PersistentString
+               value = "usersWhoLiked">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -42,6 +67,9 @@
          <PersistentStrings>
             <PersistentString
                value = "self.post">
+            </PersistentString>
+            <PersistentString
+               value = "post.createdAt">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

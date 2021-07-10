@@ -13,10 +13,11 @@
 #import "PostCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "DetailsViewController.h"
+#import "Post.h"
 
 @interface HomeViewController () <UITableViewDelegate, UITableViewDataSource, ComposeViewControllerDelegate>
 
-@property (nonatomic, strong) NSArray *posts;
+@property (nonatomic, strong) NSMutableArray *posts;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSNumber *numPosts;
@@ -102,8 +103,7 @@
     // Fetch posts asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
-            // do something with the array of object returned by the call
-            self.posts = posts;
+            self.posts = [Post createPostArray:posts];
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
         } else {

@@ -23,6 +23,7 @@
 		D91202AB2694F70A00717B04 /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91202AA2694F70A00717B04 /* ComposeViewController.m */; };
 		D91202AE2695142B00717B04 /* PostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D91202AD2695142B00717B04 /* PostCell.m */; };
 		D91202B226962C2D00717B04 /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D91202B126962C2D00717B04 /* DetailsViewController.m */; };
+		D9CB53F8269906CF00E519C0 /* Post.m in Sources */ = {isa = PBXBuildFile; fileRef = D9CB53F7269906CF00E519C0 /* Post.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +77,8 @@
 		D91202AD2695142B00717B04 /* PostCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PostCell.m; sourceTree = SOURCE_ROOT; };
 		D91202B026962C2D00717B04 /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DetailsViewController.h; path = Pods/DetailsViewController.h; sourceTree = SOURCE_ROOT; };
 		D91202B126962C2D00717B04 /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = DetailsViewController.m; path = Pods/DetailsViewController.m; sourceTree = SOURCE_ROOT; };
+		D9CB53F7269906CF00E519C0 /* Post.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = Post.m; path = "Instagram/View Controllers/Post.m"; sourceTree = SOURCE_ROOT; };
+		D9CB53F9269906E300E519C0 /* Post.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Post.h; sourceTree = "<group>"; };
 		DD0403B3EE708A0438A298FE /* Pods_Instagram_InstagramUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Instagram_InstagramUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7418DF8B21DAC649F1574A7 /* Pods-Instagram-InstagramUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Instagram-InstagramUITests.debug.xcconfig"; path = "Target Support Files/Pods-Instagram-InstagramUITests/Pods-Instagram-InstagramUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,6 +212,8 @@
 		D91202B42696572D00717B04 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D9CB53F7269906CF00E519C0 /* Post.m */,
+				D9CB53F9269906E300E519C0 /* Post.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -454,6 +459,7 @@
 				D912026F2694C8DA00717B04 /* AppDelegate.m in Sources */,
 				D91202802694C8DC00717B04 /* main.m in Sources */,
 				D91202AB2694F70A00717B04 /* ComposeViewController.m in Sources */,
+				D9CB53F8269906CF00E519C0 /* Post.m in Sources */,
 				D91202AE2695142B00717B04 /* PostCell.m in Sources */,
 				D91202A82694F1D500717B04 /* HomeViewController.m in Sources */,
 				D91202722694C8DA00717B04 /* SceneDelegate.m in Sources */,
