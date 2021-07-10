@@ -29,7 +29,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view layoutIfNeeded];
     
     // Setting default number of posts
     self.numPosts = [NSNumber numberWithInt:20];
