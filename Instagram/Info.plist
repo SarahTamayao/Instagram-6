@@ -62,9 +62,13 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Need library access to upload images</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Need camera access to take pictures</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Need library access to upload images</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Need camera access to take pictures</string>
+	<key>application_ID</key>
+	<string>W11cV3Gb2QorOuv3fmL5qcSQjWihR4aOjETYbPxl</string>
+	<key>client_Key</key>
+	<string>SXd7PW99qu8jVojebaZTUTmcIQqIypn4GLPCpAMp</string>
 </dict>
 </plist>

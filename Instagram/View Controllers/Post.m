@@ -23,6 +23,7 @@
 }
 
 - (void)initPostWithObject:(PFObject *)object {
+    // Setting Post object given PFObject
     self.user = object[@"user"];
     self.text = object[@"text"];
     self.likes = object[@"likes"];
@@ -34,6 +35,7 @@
 }
 
 + (NSMutableArray *)createPostArray:(NSArray *)objects {
+    // Returns array of Post objects given array of PFObjects
     NSMutableArray *newPosts = [[NSMutableArray alloc] init];
     for (PFObject *post in objects) {
         Post *newPost = [Post new];

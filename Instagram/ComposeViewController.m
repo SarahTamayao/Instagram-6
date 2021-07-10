@@ -48,13 +48,12 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     
-    // Get the image captured by the UIImagePickerController
-    UIImage *originalImage = info[UIImagePickerControllerOriginalImage];
+    // Get the image captured by the UIImagePickerController and resize it
     UIImage *editedImage = info[UIImagePickerControllerEditedImage];
     CGSize imageSize = CGSizeMake(300, 300);
     UIImage *resizedImage = [self resizeImage:editedImage withSize:imageSize];
 
-    // Do something with the images (based on your use case)
+    // Storing image for later use
     self.postImage = resizedImage;
     self.postImageView.image = resizedImage;
     
@@ -64,11 +63,13 @@
 
 
 - (IBAction)didTapCancel:(id)sender {
+    // Dismisses ComposeViewController
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)didTapShare:(id)sender {
+    // Setting post attributes for storage in database
     PFObject *post = [PFObject objectWithClassName:@"Instagram_Posts"];
     post[@"text"] = self.postTextView.text;
     post[@"user"] = PFUser.currentUser;
@@ -83,9 +84,11 @@
         // Saving new post
         [post saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
             if (succeeded) {
+                // If successful, dismisses view controller and reloads posts
                 [self dismissViewControllerAnimated:YES completion:nil];
                 [self.delegate didPost];
             } else {
+                // Otherwise, displays an alert
                 NSLog(@"Problem posting image: %@", error.localizedDescription);
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Error posting image." preferredStyle:(UIAlertControllerStyleAlert)];
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
@@ -109,6 +112,7 @@
 
 
 - (UIImage *)resizeImage:(UIImage *)image withSize:(CGSize)size {
+    // Resizes an image to a specified size
     UIImageView *resizeImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     
     resizeImageView.contentMode = UIViewContentModeScaleAspectFill;

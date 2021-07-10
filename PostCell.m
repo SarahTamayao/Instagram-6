@@ -29,75 +29,19 @@
 
 -(IBAction)multipleTap:(id)sender withEvent:(UIEvent*)event {
    UITouch* touch = [[event allTouches] anyObject];
+    
     // Double tap to like image
    if (touch.tapCount == 2) {
-       // construct query
-       PFQuery *query = [PFQuery queryWithClassName:@"Instagram_Posts"];
-       [query whereKey:@"objectId" equalTo:self.post.objectID];
-       // fetch data asynchronously
-       [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
-           if (posts != nil) {
-               PFObject *receivedPost = posts[0];
-               NSMutableArray *usersWhoLiked = receivedPost[@"users_who_liked"];
-               Post *queriedPost = [Post new];
-               
-               if ([usersWhoLiked containsObject:[PFUser currentUser].username]) {
-                   // User has liked photo, tapping should unlike it
-                   // Updating likes
-                   NSNumber *numLikes = receivedPost[@"likes"];
-                   NSNumber *newLikes = [NSNumber numberWithInt:([numLikes intValue] - 1)];
-                   receivedPost[@"likes"] = newLikes;
-                   
-                   // Updating users who liked
-                   [usersWhoLiked removeObject:[PFUser currentUser].username];
-                   receivedPost[@"users_who_liked"] = usersWhoLiked;
-                   
-                   // Updating button
-                   [self.likeButton setImage:[UIImage imageNamed:@"favor-icon-1"] forState:UIControlStateNormal];
-                   
-                   queriedPost.user = receivedPost[@"user"];
-                   queriedPost.text = receivedPost[@"text"];
-                   queriedPost.likes = receivedPost[@"likes"];
-                   PFFileObject *image = receivedPost[@"image"];
-                   queriedPost.imageURL = image.url;
-                   queriedPost.usersWhoLiked = usersWhoLiked;
-                   queriedPost.objectID = receivedPost.objectId;
-               } else {
-                   // User has no liked photo, tapping should like it
-                   // Updating likes
-                   NSNumber *numLikes = receivedPost[@"likes"];
-                   NSNumber *newLikes = [NSNumber numberWithInt:([numLikes intValue] + 1)];
-                   receivedPost[@"likes"] = newLikes;
-                   
-                   // Updating users who liked
-                   [usersWhoLiked addObject:[PFUser currentUser].username];
-                   receivedPost[@"users_who_liked"] = usersWhoLiked;
-                   
-                   // Updating button
-                   [self.likeButton setImage:[UIImage imageNamed:@"favor-icon-red"] forState:UIControlStateNormal];
-                   
-                   [queriedPost initPostWithObject:receivedPost];
-               }
-               
-               // Saving changes to post
-               [receivedPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
-                   if (succeeded) {
-                       self.post = queriedPost;
-                       [self reloadData];
-                   } else {
-                       NSLog(@"Problem liking image: %@", error.localizedDescription);
-                   }
-               }];
-               
-           } else {
-               NSLog(@"%@", error.localizedDescription);
-           }
-       }];
+       [self likeUnlike];
    }
 }
 
 
 - (IBAction)didTapLike:(id)sender {
+    [self likeUnlike];
+}
+
+- (void)likeUnlike {
     // construct query
     PFQuery *query = [PFQuery queryWithClassName:@"Instagram_Posts"];
     [query whereKey:@"objectId" equalTo:self.post.objectID];
@@ -122,13 +66,7 @@
                 // Updating button
                 [self.likeButton setImage:[UIImage imageNamed:@"favor-icon-1"] forState:UIControlStateNormal];
                 
-                queriedPost.user = receivedPost[@"user"];
-                queriedPost.text = receivedPost[@"text"];
-                queriedPost.likes = receivedPost[@"likes"];
-                PFFileObject *image = receivedPost[@"image"];
-                queriedPost.imageURL = image.url;
-                queriedPost.usersWhoLiked = usersWhoLiked;
-                queriedPost.objectID = receivedPost.objectId;
+                [queriedPost initPostWithObject:receivedPost];
             } else {
                 // User has no liked photo, tapping should like it
                 // Updating likes
@@ -149,6 +87,7 @@
             // Saving changes to post
             [receivedPost saveInBackgroundWithBlock:^(BOOL succeeded, NSError * error) {
                 if (succeeded) {
+                    // Setting self.post to our updated post object
                     self.post = queriedPost;
                     [self reloadData];
                 } else {
@@ -164,7 +103,7 @@
 
 
 - (void)reloadData {
-    // Displaying likes
+    // Reloading number of likes
     if ([self.post.likes intValue] == 1) {
         self.likesLabel.text = [NSString stringWithFormat:@"%@ like", self.post.likes];
     } else {

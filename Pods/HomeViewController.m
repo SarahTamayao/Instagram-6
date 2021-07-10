@@ -45,6 +45,13 @@
     // Initializing table headers
     [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"PostHeader"];
     
+    // Refresh table view every 10 minutes
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:600
+        target:self selector:@selector(reloadTableView:) userInfo:nil repeats:true];
+    
+    // Loading posts
+    [self loadPosts];
+    
     // Piece of code that stops header view from floating when scrolling -- hides refreshControl though
     /*
     CGFloat dummyViewHeight = 50;
@@ -53,23 +60,17 @@
     self.tableView.tableHeaderView = dummyView;
     self.tableView.contentInset = UIEdgeInsetsMake(-dummyViewHeight, 0, 0, 0);
      */
-    
-    // Refresh table view every 10 minutes
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:600
-        target:self selector:@selector(reloadTableView:) userInfo:nil repeats:true];
-    
-    // Loading posts
-    [self loadPosts];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    // Reloads posts when page is viewed
     [self.tableView reloadData];
 }
 
 
 - (void)reloadTableView:(NSTimer *)timer {
+    // Reloads posts every 10 minutes
     [self.tableView reloadData];
-    NSLog(@"refreshed!");
 }
 
 
@@ -81,6 +82,7 @@
     
     // Showing login screen after logout
     SceneDelegate *myDelegate = (SceneDelegate *)self.view.window.windowScene.delegate;
+    
     // Logging out and swtiching to login view controller
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
@@ -102,6 +104,7 @@
     // Fetch posts asynchronously
     [query findObjectsInBackgroundWithBlock:^(NSArray *posts, NSError *error) {
         if (posts != nil) {
+            // Create and store array of Post objects from retrieved posts
             self.posts = [Post createPostArray:posts];
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
@@ -112,15 +115,13 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    // Sets header content and formats it
     UITableViewHeaderFooterView *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:@"PostHeader"];
     header.textLabel.text = [NSString stringWithFormat:@"          %@", self.posts[section][@"user"][@"username"]];
     UIImage *image = [UIImage imageNamed:@"user2"];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     imageView.frame = CGRectMake(10,10,40,40);
     [header addSubview:imageView];
-    //[header addSubview:imageView];
-    //[imageView setTranslatesAutoresizingMaskIntoConstraints:false];
-    //[imageView setCenter:CGPointMake(60, 60)];
     return header;
 }
 
@@ -128,6 +129,7 @@
 -(void)tableView:(UITableView *)tableView
     willDisplayHeaderView:(UIView *)view
       forSection:(NSInteger)section {
+    // Header color
     view.tintColor = [UIColor colorWithWhite:1.0 alpha:0.9];
 }
 
@@ -137,9 +139,8 @@
     // Table view dequeueing
     PostCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PostCell"];
     
-    // Setting post
+    // Setting cell
     PFObject *post = self.posts[indexPath.section];
-    
     [cell setCell:post];
     
     return cell;
@@ -155,6 +156,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
+    // Loads more posts if end of loaded posts is reached
     if(indexPath.row + 1 == [self.numPosts intValue]){
         NSNumber *newNumPosts = [NSNumber numberWithInt:[self.numPosts intValue]+20];
         self.numPosts = newNumPosts;
@@ -187,6 +189,7 @@
         DetailsViewController *detailsViewController = [segue destinationViewController];
         detailsViewController.post = post;
     } else if ([segue.identifier  isEqual: @"toCompose"]) {
+        // Segue to ComposeViewController and set HomeViewController as its delegate
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;

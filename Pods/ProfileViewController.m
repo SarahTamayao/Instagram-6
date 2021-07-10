@@ -28,8 +28,10 @@
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
     
+    // Loads basic profile info
     [self setBasicProfile];
     
+    // Loads post images by user
     [self loadPosts];
     
     // Specifying collection view layout
@@ -45,14 +47,14 @@
 
 
 -(void)viewDidAppear:(BOOL)animated {
-    // Reload movies every time you visit a page
+    // Reload post every time you view the page
     [self loadPosts];
 }
 
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
-    // Identifying movie
+    // Identifying image
     ImageCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
     
     Post *post = self.posts[indexPath.item];

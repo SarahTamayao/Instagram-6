@@ -20,11 +20,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Attach tap gesture recognizer to dismiss keyboard
-    // [self.view addGestureRecognizer:self.tapGestureRecognizer];
+    // Obscures password
+    self.passwordField.secureTextEntry = YES;
 }
 
 - (IBAction)dismissKeyboard:(id)sender {
+    // Dismisses keyboard when screen is tapped
     [self.view endEditing:YES];
 }
 
@@ -35,6 +36,7 @@
 
 
 - (IBAction)didTapSignUp:(id)sender {
+    // Checks is username or password fields are empty, displays alert if so
     if([self.usernameField.text isEqual:@""] || [self.passwordField.text isEqual:@""]){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Please fill out all fields to continue." preferredStyle:(UIAlertControllerStyleAlert)];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {}];
@@ -45,20 +47,6 @@
         [self registerUser];
         self.usernameField.text = @"";
         self.passwordField.text = @"";
-        /*
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Welcome!"
-                                                                       message:@"Sign up complete."
-                                                                        preferredStyle:(UIAlertControllerStyleAlert)];
-        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK"
-                                                           style:UIAlertActionStyleDefault
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                                 // handle response here.
-                                                         }];
-        [alert addAction:okAction];
-        [self presentViewController:alert animated:YES completion:^{
-            // optional code for what happens after the alert controller has finished presenting
-         
-        }];*/
     }
 }
 
@@ -80,7 +68,6 @@
             [alert addAction:okAction];
             [self presentViewController:alert animated:YES completion:^{
             }];
-            // NSLog(@"Error: %@", error.localizedDescription);
         } else {
             NSLog(@"User registered successfully");
 
