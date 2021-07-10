@@ -55,12 +55,12 @@ Login/Logout:
 
 Main functionalities:
 
-<img src='insta_main_funcs' title='Main functionalities' width='' alt='Main functionalities' />
+<img src='insta_main_funcs.gif' title='Main functionalities' width='' alt='Main functionalities' />
 
 
 User Profile/Persistence:
 
-<img src='insta_profile_persistence' title='Profile, Persistence' width='' alt='Profile, Persistence' />
+<img src='insta_profile_persistence.gif' title='Profile, Persistence' width='' alt='Profile, Persistence' />
 
 
 Screen Rotation:
