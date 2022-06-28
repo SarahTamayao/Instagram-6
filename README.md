@@ -48,26 +48,6 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 Here's a walkthrough of implemented user stories:
 
-Login/Logout:
-*Note: I am typing in the password field, screen recording just doesn't record it since it's a password 
-
-![](https://i.imgur.com/J6dFnbc.gif)
-
-
-Main functionalities:
-
-<img src='insta_main_funcs.gif' title='Main functionalities' width='' alt='Main functionalities' />
-
-
-User Profile/Persistence:
-
-<img src='insta_profile_persistence.gif' title='Profile, Persistence' width='' alt='Profile, Persistence' />
-
-
-Screen Rotation:
-
-![](https://i.imgur.com/7MBjwqm.gif)
-
 
 GIF created with [Kap](https://getkap.co/).
 
